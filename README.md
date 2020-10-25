@@ -46,7 +46,7 @@
 
 <div class="fig center"><img src="https://www.graphicartsunit.com/saucer/images/convert_to_type_on_a_path/step1.png" alt="スクリプトの概要" class="noshadow"></div>
 
-通常の手順でパス上文字を作成するのは少し手間がかかりますが、パス上文字を選択してこのスクリプトを実行すれば、一発でパス上文字に変換できます。複数の同時処理にも対応しています。
+通常の手順でパス上文字を作成するのは少し手間がかかりますが、ポイント文字を選択してこのスクリプトを実行すれば、一発でパス上文字に変換できます。複数の同時処理にも対応しています。
 
 ----
 
