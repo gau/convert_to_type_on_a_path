@@ -2,14 +2,14 @@
 
 	// Settings
 	var settings = {
-		'isOneLine' : false,
+		'isSingleLine' : false,
 		'baseLineOffset' : 1.02,
 		'handleOffset' : [3.5, 4]
 	};
 
 	// Constant
 	const SCRIPT_TITLE = 'ポイント文字をパス上文字に変換';
-	const SCRIPT_VERSION = '0.5.0';
+	const SCRIPT_VERSION = '0.5.1';
 
 	// Get items
 	var doc = app.activeDocument;  
@@ -29,10 +29,11 @@
 
 		for (var j = 0; j < targetItems.length; j++) {
 
-			// Get original text frame item.
+			// Get original text frame item & current layer
 			var originalText = targetItems[j];
+			var currentlayer = originalText.layer;
 
-			// Get bounds.
+			// Get bounds
 			var dummyTexts = [originalText.duplicate(), originalText.duplicate()];
 			dummyTexts[0].contents = '';
 			for (var i = 0; i < originalText.lines[0].length; i++) {
@@ -48,14 +49,14 @@
 			}
 
 			// Remove Returns
-			if(settings.isOneLine) {
+			if(settings.isSingleLine) {
 				for (var i = 0; i < originalText.textRanges.length; i++) {
 					originalText.textRanges[i].contents = originalText.textRanges[i].contents.replace(/(\r\n|\n|\r|\u0003)/gm, '');
 				}
 			}
 
 			// Create Text path
-			var textPath = doc.pathItems.add();
+			var textPath = currentlayer.pathItems.add();
 			textPath.setEntirePath([[bounds[0], bounds[3] * settings.baseLineOffset],[bounds[2], bounds[3] * settings.baseLineOffset]]);
 
 			// Calculate handle offset
@@ -68,7 +69,7 @@
 			points[1].leftDirection = [points[1].rightDirection[0] - handleOffsets[0] , points[1].rightDirection[1] + handleOffsets[1]];
 
 			// Create Text on a path
-			var textOnAPath = doc.textFrames.pathText(textPath);
+			var textOnAPath = currentlayer.textFrames.pathText(textPath);
 			textOnAPath.move(originalText, ElementPlacement.PLACEBEFORE);
 
 			// Duplicate textrange from original text frame item
